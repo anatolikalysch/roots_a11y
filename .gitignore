@@ -86,8 +86,8 @@ fabric.properties
 *.class
 
 # generated files
-bin/
-gen/
+*/bin/
+*/gen/
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -113,13 +113,13 @@ obj/
 .externalNativeBuild
 
 *.iml
-.gradle
-/local.properties
-/.idea/workspace.xml
-/.idea/libraries
-.DS_Store
-/build
-/captures
+*/.gradle
+*/local.properties
+*/.idea/workspace.xml
+*/.idea/libraries
+*/.DS_Store
+*/build
+*/captures
 
 /*/out
 /*/*/build
@@ -128,5 +128,7 @@ obj/
 *.ipr
 *~
 *.swp
+
+
 
 .idea

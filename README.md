@@ -3,8 +3,43 @@
 This repository consolidates PoC files for the publication [How Android's UI Security is Undermined by Accessibility](https://faui1-files.cs.fau.de/public/publications/a11y_final_version.pdf).
 The PoCs are published in form of code snippets describing the Attack vectors but do not facilitate a working state on their own. Instead they should be integrated into an Android Project to be made workable. Each PoC directory has its own README describing the attack and the culnerability it abuses. We tested the described vulnerabilities and attacks on several Android versions and came to the following conclusions:
 
-[ TODO: Placeholder table with vulnerabilities and attacks]
 
+
+Attack	Vulnerable Android Versions	Possible Countermeasures
+
+Accessibility Event Sniffing	✗	✓	✓	✓	✓	a11y event sanitizing, fingerprint authentication
+Accessibility Screen Recording	✓	✓	✓	✓	✓	secure flag and in-app keyboard
+Accessibility-enabled Malicious IME	✓	✓	✓	✓	✓	in-app keyboard and behavior listener
+Accessibility-based Ad Hijacking [2]
+	✓	✓	✓	✓	✓	a11y event sanitizing
+Overlay and Accessibility assisted Password Stealing [2]
+	✓	✓	✓	✓	✓	a11y event sanitizing, window punching
+Keyboard App Hijacking [2]
+	(✓)	(✓)	(✓)	✗	✗	in-app keyboard or enforcing Gboard update
+Full App Passthrough / Clickable Overlays [3]
+	✓	✓	✓	✓*	✓*	window punching
+Partial App Clickable Overlays [1]
+	✓	✓	✓	✓*	✓*	window punching
+Context-aware Clickjacking / Hiding [2]
+	✓	✓	✓	✓*	✓*	window punching
+Keystroke Inference [2]
+	✓	✓	✓	✗	✗	in-app keyboard and window punching
+
+
+| Attack                                                   | 6.0 |	7.0	| 7.1.2	| 8.0 | 8.1 |Possible Countermeasures                          |
+|----------------------------------------------------------|-----|------|-------|-----|-----|---------------------------------------------------|
+| Accessibility Event Sniffing                             | ✗ |	✓	| ✓	| ✓ |  ✓ | a11y event sanitizing, fingerprint authentication |
+| Accessibility Screen Recording                           | ✓ |	✓	| ✓	| ✓| ✓| secure flag and in-app keyboard                   |
+| Accessibility-enabled Malicious IME                      | ✓ |	✓	| ✓	| ✓| ✓| in-app keyboard and behavior listener             |
+| Accessibility-based Ad Hijacking [2]                     | ✓ |	✓	| ✓	| ✓| ✓| a11y event sanitizing                             |
+| Overlay and Accessibility assisted Password Stealing [2] | ✓ |	✓	| ✓	| ✓| ✓| a11y event sanitizing, window punching            |
+| Keyboard App Hijacking [2]                               | (✓) |	(✓)	| (✓)	| ✗ | ✗ | in-app keyboard or enforcing Gboard update        |
+| Full App Passthrough / Clickable Overlays [3]            | ✓ |	✓	| ✓	| ✓* | ✓* | window punching                                   |
+| Partial App Clickable Overlays [1]                       | ✓ |	✓	| ✓	| ✓* | ✓* | window punching                                   |
+| Context-aware Clickjacking / Hiding [2]                  | ✓ |	✓	| ✓	| ✓* |✓* | window punching                                   |
+| Keystroke Inference [2]                                  | ✓ |	✓	| ✓	| ✗ | ✗ | in-app keyboard and window punching               |                                                        |                             |                                                   |
+
+6.0	7.0	7.1.2	8.0	8.1
 # Minimal Project Structure
 
 The a11y service should contain a XML description of the service capabilities as specified [in the developer docs](https://developer.android.com/guide/topics/ui/accessibility/services#service-config) with all the necessary capabilities the service needs to function correctly. Additionally, the accessibility service class should be implementing all of the necessary methods for the service to be compiled -- these a not part of the PoC snippets.
